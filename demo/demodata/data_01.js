@@ -7,6 +7,7 @@
 		_global_window.demoData_01 = f();
 	}
 }(function(){
+	/* istanbul ignore next */
 	var obj  = [
 		{
 			"name" : "类E",

@@ -1,5 +1,6 @@
 (function(treeFactory){
 	"use strict";
+	/* istanbul ignore else */
 	if(typeof module ==='object' && typeof module.exports ==='object'){
 		var jsdom = require("jsdom").jsdom;
 		var doc = jsdom("");

@@ -1,6 +1,7 @@
 (function(f){
 	"use strict";
 	var mocha ,chai,navitree,BeanFactory,demoDataTmp,assert,suite,setup,suiteSetup,test,teardown,suiteTeardown;
+	/* istanbul ignore else */
 	if(typeof module ==='object' && typeof module.exports ==='object'){
 		mocha = require('mocha');
 		chai = require('chai');

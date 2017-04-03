@@ -1,5 +1,6 @@
  (function(f){
  	"use strict";
+ 	/* istanbul ignore else */
  	if(typeof module ==='object' && typeof module.exports ==='object'){
  		var beanfy = require("./../common/beanFactory.js");
  		module.exports = f(beanfy);

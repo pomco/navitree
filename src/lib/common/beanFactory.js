@@ -1,5 +1,6 @@
 (function(beanFactory){
 	"use strict";
+	/* istanbul ignore else */
 	if(typeof module ==='object' && typeof module.exports ==='object'){
 		module.exports = beanFactory();
 	}else{
