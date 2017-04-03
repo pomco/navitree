@@ -9,7 +9,7 @@
 [![NPM](https://nodei.co/npm/navitree.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/navitree/)
 
 ## example
-see [demo](https://github.com/pomco/navitree/tree/master/demo/global/index.html)
+see [demo](https://github.com/pomco/navitree/tree/master/demo/)
 
 ## in Browser
 
@@ -33,7 +33,7 @@ navitree.data(demoData).child("name").parent("parent").render("tree");
  *  @  render("tree") , render the tree menu in html element whose id is 'tree'
  */
 ```
-about 'demoData' e.g. see also some [demo](https://github.com/pomco/navitree/tree/master/demo/global/index.html).
+about 'demoData' e.g. see also some [demo](https://github.com/pomco/navitree/tree/master/demo/).
 
 
 ## in NodeJs environment
@@ -65,21 +65,21 @@ var navitree = require('navitree');
 navitree
 ```
 ### navitree.data(arr)
-*set the data that is an array of JSON objects *
+*set the data that is an array of JSON objects*
 
 ### navitree.child(str)
-*set the property  which treating as children *
+*set the property  which treating as children*
 
 ### navitree.parent(str)
-*set the property  which treating as parent *
+*set the property  which treating as parent*
 
 ### navitree.url(str)
 *set the property  form which getting a url content*
 ### navitree.render(str)
-*tell which  id of  a html element  that  the tree menu would be rendered in *
+*tell which  id of  a html element  that  the tree menu would be rendered in*
 
 ### navitree.iframeName(str)
-*set iframe's name *
+*set iframe's name*
 
 ### navitree.menuName(str)
 *set the property from which getting the displayname content*
@@ -87,7 +87,7 @@ navitree
 ### navitree.tree()
 *would return tree infomation of JSON Object*
 ### navitree.html()
-*would return tree menu of html string ,such as <ul>.*</ul>*
+*would return tree menu of html string ,such as <ul>...</ul>*
 
 ## Run Unit Test
 ```
