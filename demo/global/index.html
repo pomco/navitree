@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<!--
+	<link href="https://cdn.bootcss.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" rel="stylesheet">
+	-->
+	<link href="./common/css/impress-demo.css" rel="stylesheet" />
+	<link href="./common/css/bootstrap.min.css" rel="stylesheet" />
+	<link href="./common/css/mycss.css" rel="stylesheet" />
+    <link rel="shortcut icon" href="./common/img/favicon.png" />
+    <link rel="apple-touch-icon" href="./common/img/apple-touch-icon.png" />
+	<style type="text/css">
+	 body {
+	 	font-family:"";
+	 	font-size: 10px;
+	 	
+	 }
+	 div {
+	 	margin : 10px,10px;
+	 }
+	</style>			
+</head>
+<body class="impress-not-supported">
+
+	<div class="fallback-message">
+		<p>你的浏览器<b>不支持impress.js的一些特性</b>，只能简单预览!</p>
+		<p>推荐使用<b>{Chrome}</b>,<b>{Safari}</b>,<b>{Firefox}</b>浏览器，获得更佳体验!</p>
+	</div>
+	<div id="impress">
+		<div class="container-fluid">
+			<div class="step slide" id="preStr"  data-x="-6000" data-y="2000" data-z="100" data-rotate-x="30" data-rotate-y="0" data-rotate-z="0" data-scale="2"></div>
+			<div class="step slide" id="jsonStr"  data-x="-3000" data-y="2000" data-z="100" data-rotate-x="30" data-rotate-y="0" data-rotate-z="0" data-scale="2"></div>
+	  		<div class="step slide"   data-x="4000" data-y="2000" data-z="100" data-rotate-x="0" data-rotate-y="90" data-rotate-z="0" data-scale="2">
+	  			<div class="row" id="treeStr"></div>
+	  			<div class="row">
+					<div id="tree" class="col-md-6"></div>
+					<div class="col-md-6">
+						<iframe scrolling="no"  name="showpage" width="100%" height="100%" frameborder="0" marginwidth="5px" marginheight="10px"></iframe>
+					</div>		  				
+	  			</div>
+			</div>	
+		</div>	
+	</div>
+<!--
+	<script   src="https://code.jquery.com/jquery-3.2.1.min.js"   integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="   crossorigin="anonymous"></script>
+-->
+	<script src="./common/js/jquery-1.12.0.min.js"></script>
+	<script type="text/javascript" src="../demodata/data.js"></script>
+	<script type="text/javascript" src="../../built/navitree.min.js"></script>
+	<script src="./common/js/impress.js"></script>
+	<script src="./common/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+$("head>title").html("navitree demo,"+"version:"+navitree.Version+",by "+navitree.Author);
+navitree.extend("showbefore",function(demoData){
+	var prestr ="<div><p class='title'>Try to organize your data like the following relationships</p></div>"
+	prestr +="<p class='title'>For instance ,treating the first column which named 'name' as 'child' and  treating the second column which named 'parent' as 'parent'</p>";
+	prestr +="<table class=\"table table-striped table-bordered\">";
+	var showStr ="";
+	var jsonStr ="";
+	var treeStr ="";
+	for(var i=0;i<demoData.length;i++){
+		if(i==0){
+			prestr +="<tr>";
+			var th = Object.keys(demoData[i]);
+			for(var j =0; j<th.length;j++){
+				prestr +="<th>"+th[j]+"</th>";
+			}
+			prestr +="</tr>";
+			jsonStr +="<p class='sign clearright'>var demoData = [</p>";	
+		}
+		prestr +="<tr>";
+		var count = Object.keys(demoData[i]).length;
+		for(var key in demoData[i]){
+			if(demoData[i].hasOwnProperty(key)){
+				prestr +="<td>"+demoData[i][key]+"</td>";
+				if(count === Object.keys(demoData[i]).length){
+					jsonStr +="<p class='sign clearleft'>{</p>";
+				}
+				jsonStr +="<p class='literal'>\"</p><p class='key'>"+key+"</p><p class='literal'>\"</p>"+"<p class='literal'>:</p>"+"<p class='literal'>\"</p><p class='literal'>"+demoData[i][key]+"</p><p class='literal'>\"</p>";
+				count--;
+				if(count>0){
+					jsonStr += "<p class='comma'>,</p>";
+				}
+				if(count==0){
+					jsonStr += "<p class='sign clearright'>}</p>";
+				}
+				if(count==0 && i <demoData.length-1){
+					jsonStr +="<p class='comma clearright'>,</p>";
+				}
+			}	
+		}
+		prestr +="</tr>";
+		if(i==demoData.length-1){
+			jsonStr +="<p class='sign clearleft'>]</p>";
+		}
+	}
+	prestr +="</table>";
+	showStr +="<div><p class='title'>Each line is wrapped in a JSON object<br/> and finally put all the JSON objects into an array<br/>show as below:</p></div>";
+	showStr +="<div>"+jsonStr+"</div>";
+	treeStr +="<div><p class='title'>Import jQuery JS lib and navitree plugin(i.e navitree.min.js which located in 'bulit' floder) </p><p class='title'>Then executing the JS statement<br/><pre>&lt;script src=\"./common/js/jquery-1.12.0.min.js\"&gt;&lt;/script&gt;</pre><pre>&lt;script type=\"text/javascript\" src=\"../../built/navitree.min.js\"&gt;&lt;/script&gt;</pre><pre>navitree.data(demoData).child(\"name\").parent(\"parent\").url(\"url\").iframeName(\"showpage\").render(\"tree\").menuName(\"alias\");</pre></p><p class='title'>Generate the tree navigation menu as shown below</p></div>";
+	$("#preStr").html(prestr);
+	$("#jsonStr").html(showStr);
+	$("#treeStr").html(treeStr);
+});
+navitree.showbefore(demoData);
+navitree.data(demoData).child("name").parent("parent").url("url").iframeName("showpage").render("tree").menuName("alias");
+</script>
+<script>
+	if ("ontouchstart" in document.documentElement) { 
+	 document.querySelector(".hint").innerHTML = "<p>点击左侧或右侧来翻页</p>";
+	}
+</script>
+
+<script>
+	$("#tree").ready(function(){
+		impress().init();
+		var thList  = $("#preStr th");
+		var trList =  $("#preStr tr");
+		var tdList = null;
+		var className ="";
+		var tmpClassName ="";
+		$.each(["name","parent"],function(index,value){
+			for (var j =0;j<thList.length;j++){
+				if(thList.eq(j).html() ===value){
+					if(value ==='name'){
+						tmpClassName ="child";
+					}else if(value ==='parent'){
+						tmpClassName ="parent";
+					}
+					className = thList.eq(j).attr("class")? thList.eq(j).attr("class")+" "+tmpClassName : tmpClassName;
+					thList.eq(j).prop("class",className);
+					for(var m=0;m<trList.length;m++){
+						tdList = $(">td",trList.eq(m));
+						className = tdList.eq(j).attr("class")?tdList.eq(j).attr("class")+" "+tmpClassName : tmpClassName;
+						tdList.eq(j).prop("class",className);
+					}
+				}
+			}			
+		});
+		/*
+		var intervalId = setInterval(function(){
+			impress().next();
+		},3000);
+		$("#impress").hover(function(){
+			clearInterval(intervalId);
+		},function(){
+			intervalId =setInterval(function(){
+				impress().next();
+			},3000);
+		});
+*/
+	});
+</script>
+
+</body>
+</html>

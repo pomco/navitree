@@ -1,0 +1,48 @@
+{
+  "name": "navitree",
+  "version": "0.0.0",
+  "description": "",
+  "main": "navitree.js",
+  "scripts": {
+    "test": "./node_modules/mocha/bin/mocha -u tdd ./test/*.js",
+    "coveralls": "./node_modules/istanbul/lib/cli.js cover ./node_modules/mocha/bin/_mocha ./test/*.js --report lcovonly -- -R spec && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage",
+    "gulp": "./node_modules/gulp/bin/gulp.js"
+  },
+ "repository": {
+    "type": "git",
+    "url": "https://github.com/pomco/navitree.git"
+  },
+  "keywords": [
+    "nodejs",
+    "js",
+    "javascript",
+    "json",
+    "navigation",
+    "tree",
+    "menu",
+    "gulp",
+    "mocha",
+    "chai"
+  ],
+  "author": "pomco",
+  "license": "MIT",
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "coveralls": "^2.13.0",
+    "del": "^2.2.2",
+    "gulp": "^3.9.1",
+    "gulp-concat": "^2.6.1",
+    "gulp-jshint": "^2.0.4",
+    "gulp-mocha": "^4.3.0",
+    "gulp-sourcemaps": "^2.5.0",
+    "gulp-uglify": "^2.1.2",
+    "istanbul": "^0.4.5",
+    "jshint": "^2.9.4",
+    "mocha": "^3.2.0",
+    "mocha-lcov-reporter": "^1.3.0"
+  },
+  "dependencies": {
+    "jquery": "^3.2.1",
+    "jsdom": "^9.12.0"
+  }
+}

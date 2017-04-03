@@ -1,0 +1,86 @@
+body{
+	background: url(../img/bg.jpg);
+	background-repeat: repeat-x repeat-y;
+	font-family: FangSong,Microsoft YaHei;
+}
+
+.adjust-catalog p{
+	text-align:left;
+	margin: 10px 0px 10px 0px;
+	padding: 10px 10px 10px 10px;
+	font-family: FangSong;
+	font-size: 38px;
+	text-indent:50px;
+
+}
+.adjust-item p{
+	font-family: FangSong;
+	font-size: 24px;
+	text-indent:20px;
+	margin: 10px 0px 10px 0px;
+	padding: 10px 10px 10px 5px;
+}
+.title{
+	color:#f06060;
+	font-size:24px;
+}
+.sign{
+	font-size:24px;
+	color:#ff50ff;
+	float: left;
+	overflow: hidden;
+	padding: 0px 2px;
+
+	/*
+	display:inline-block;
+	*/
+
+}
+.key{
+	font-size:9px;
+	color:#6060ff;
+	float: left;
+	overflow: hidden;
+	
+	/*
+	display:inline-block;
+	*/
+}
+.literal{
+	font-size:9px;
+	float: left;
+	overflow: hidden;
+	margin: 0px 2px;
+	
+	/*
+	display:inline-block;
+	*/
+}
+.comma{
+	font-size:14px;
+	color:#ff6060;
+	float: left;
+	overflow: hidden;
+	/*
+	display:inline-block;
+	*/
+}
+
+.clearleft {
+	clear: left;
+}
+.clearright {
+	clear: right;
+}
+.clearboth {
+	clear:both;
+}
+#treeStr pre{
+	font-size: 14px;
+}
+.parent{
+	background:#CEFCEB;
+}
+.child{
+	background:#FFD3F6
+}

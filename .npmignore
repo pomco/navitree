@@ -1,0 +1,10 @@
+# no .a and .c files
+* .[ac]
+*.log
+./**/*.log
+# ignore all files in the node_modules/ directory
+node_modules/
+coverage/
+# ignore all .log files in the reporter/ directory
+reporter/**/*.log
+coverage/**/*.*

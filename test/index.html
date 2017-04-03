@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>navitree</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="mocha.css" />
+  </head>
+  <body>
+    <div id="info"></div>
+    <div id="mocha"></div>
+    <script src="mocha.js"></script>
+    <script>mocha.setup('tdd');</script>
+     <script src="../demo/demodata/data.js"></script>
+     <script src="../demo/demodata/data_01.js"></script>
+    <script   src="https://code.jquery.com/jquery-3.2.1.min.js"   integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="   crossorigin="anonymous"></script>     
+     <script src="../built/navitree.min.js"></script>
+    <script src="http://chaijs.com/chai.js"></script>
+    <script src="navitree_test_tasks_mocha_tdd.js"></script>
+
+    <script>
+      var html = "";
+      html +="<p>Version : "+navitree.Version+"</p>";
+      html +="<p>author : "+navitree.Author+"</p>";
+      $("#info").html(html);
+      mocha.run();
+    </script>
+  </body>
+</html>
