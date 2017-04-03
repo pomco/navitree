@@ -9,7 +9,7 @@
 [![NPM](https://nodei.co/npm/navitree.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/navitree/)
 
 ## example
-see [demo](https://github.com/pomco/navitree/tree/master/demo/)
+see [demo](https://pomco.github.io/navitree/demo/global/index.html)
 
 ## in Browser
 
@@ -17,7 +17,7 @@ see [demo](https://github.com/pomco/navitree/tree/master/demo/)
 ### Script tag
 ```
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-<script src="https://github.com/pomco/navitree/tree/master/bulit/navitree.min.js"></script>
+<script src="https://pomco.github.io/navitree/built/navitree.min.js"></script>
 ```
 ### html content
 ```
@@ -33,10 +33,10 @@ navitree.data(demoData).child("name").parent("parent").render("tree");
  *  @  render("tree") , render the tree menu in html element whose id is 'tree'
  */
 ```
-about 'demoData' e.g. see also some [demo](https://github.com/pomco/navitree/tree/master/demo/).
+about 'demoData' e.g. see also some [demo](https://pomco.github.io/navitree/demo/global/index.html).
 
 
-## in NodeJs environment
+## in node
 ### install
 To include navitree in Node, first install with npm.
 ```
@@ -90,6 +90,10 @@ navitree
 *would return tree menu of html string ,such as <ul>...</ul>*
 
 ## Run Unit Test
+### in node
 ```
 npm run gulp
 ```
+### in Browser
+
+see [test](https://pomco.github.io/navitree/test/index.html)

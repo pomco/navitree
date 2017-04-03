@@ -505,6 +505,9 @@
 				navitree.data({});
 				assert.match(navitree.html(),/^$/);
 				domCheck({},BeanFactory.treemodel.jsontree.opt);
+				navitree.render("athertree");
+				assert.match(navitree.html(),/^$/);
+				domCheck({},BeanFactory.treemodel.jsontree.opt);
 			});		
 		});
 	});
