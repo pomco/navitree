@@ -46,9 +46,12 @@
 <!--
 	<script   src="https://code.jquery.com/jquery-3.2.1.min.js"   integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="   crossorigin="anonymous"></script>
 -->
+<!--
 	<script src="./common/js/jquery-1.12.0.min.js"></script>
-	<script type="text/javascript" src="../demodata/data.js"></script>
-	<script type="text/javascript" src="../../built/navitree.min.js"></script>
+-->
+	<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+	<script type="text/javascript" src="https://pomco.github.io/navitree/demo/demodata/data.js"></script>
+	<script type="text/javascript" src="https://pomco.github.io/navitree/built/navitree.min.js"></script>
 	<script src="./common/js/impress.js"></script>
 	<script src="./common/js/bootstrap.min.js"></script>
 <script type="text/javascript">
@@ -99,7 +102,7 @@ navitree.extend("showbefore",function(demoData){
 	prestr +="</table>";
 	showStr +="<div><p class='title'>Each line is wrapped in a JSON object<br/> and finally put all the JSON objects into an array<br/>show as below:</p></div>";
 	showStr +="<div>"+jsonStr+"</div>";
-	treeStr +="<div><p class='title'>Import jQuery JS lib and navitree plugin(i.e navitree.min.js which located in 'bulit' floder) </p><p class='title'>Then executing the JS statement<br/><pre>&lt;script src=\"./common/js/jquery-1.12.0.min.js\"&gt;&lt;/script&gt;</pre><pre>&lt;script type=\"text/javascript\" src=\"../../built/navitree.min.js\"&gt;&lt;/script&gt;</pre><pre>navitree.data(demoData).child(\"name\").parent(\"parent\").url(\"url\").iframeName(\"showpage\").render(\"tree\").menuName(\"alias\");</pre></p><p class='title'>Generate the tree navigation menu as shown below</p></div>";
+	treeStr +="<div><p class='title'>Import jQuery JS lib and navitree plugin(i.e navitree.min.js which located in 'bulit' floder) </p><p class='title'>Then executing the JS statement<br/><pre>&lt;script src=\"https://code.jquery.com/jquery-3.2.1.min.js\"&gt;&lt;/script&gt;</pre><pre>&lt;script type=\"text/javascript\" src=\"https://pomco.github.io/navitree/built/navitree.min.js\"&gt;&lt;/script&gt;</pre><pre>navitree.data(demoData).child(\"name\").parent(\"parent\").url(\"url\").iframeName(\"showpage\").render(\"tree\").menuName(\"alias\");</pre></p><p class='title'>Generate the tree navigation menu as shown below</p></div>";
 	$("#preStr").html(prestr);
 	$("#jsonStr").html(showStr);
 	$("#treeStr").html(treeStr);

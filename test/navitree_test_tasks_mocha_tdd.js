@@ -151,7 +151,7 @@
 	});
 
 	setup('setup()在执行每个测试用例前，都要执行1次',function(){ // 执行每个测试用例前，都要执行1次
-		data = demoData[0];
+		data = demoData;
 		var obj = {};
 		deepCopy(oldOpt,obj);
 		BeanFactory.treemodel.jsontree.opt = obj;
@@ -165,33 +165,44 @@
 	suite('navitree TDD Test\n',function(){ // 定义多组测试用例
 		suite(' ^_^ 测试数据检查\n',function(){ 
 			test(' ->测试数据封装在数组内\n',function(){
-				assert.isArray(data,'测试数据应当封装在数组内\n');
+				for(var i=0;i<data.length;i++){
+					assert.isArray(data[i],'测试数据应当封装在数组内\n');
+				}
+				
 			});
 			test(' ->数组长度大于0\n',function(){
-				assert.isAbove(data.length,0,'数组长度应当大于0\n');
+				for(var i=0;i<data.length;i++){
+					assert.isAbove(data[i].length,0,'数组长度应当大于0\n');
+				}
 			});
 			test(' ->数组内每个元素是对象类型\n', function() {
-			    for(var i=0; i<data.length;i++){
-			    	assert.isObject(data[i],'数组内每个元素应当是对象类型\n');
-			    }
+				for(var i=0;i<data.length;i++){
+			    	for(var j=0; j<data[i].length;j++){
+			    		assert.isObject(data[i][j],'数组内每个元素应当是对象类型\n');
+			    	}
+				}
 			});
 			test(' ->每个对象的属性个数相等\n',function() {
-			     var len = 0;
-			     for(var i=0; i<data.length;i++){
-			     	if(i===0){
-			     		len = Object.keys(data[i]).length;
-			     	}
-			     	assert.strictEqual(Object.keys(data[i]).length,len,'每个对象的属性个数应当相等\n');
-			     }
+				for(var i=0;i<data.length;i++){
+				     var len = 0;
+				     for(var j=0; j<data.length;j++){
+				     	if(j===0){
+				     		len = Object.keys(data[i][j]).length;
+				     	}
+				     	assert.strictEqual(Object.keys(data[i][j]).length,len,'每个对象的属性个数应当相等\n');
+				     }
+			    }
 			});
 			test(' ->每个对象的属性名称相同\n',function(){
-				var keys = [];
 				for(var i=0;i<data.length;i++){
-					if(i===0){
-						keys = Object.keys(data[i]);
+					var keys = [];
+					for(var j=0;j<data.length;j++){
+						if(j===0){
+							keys = Object.keys(data[i][j]);
+						}
+						assert.deepEqual(Object.keys(data[i][j]),keys,'每个对象的属性名称应当相同\n');
 					}
-					assert.deepEqual(Object.keys(data[i]),keys,'每个对象的属性名称应当相同\n');
-				}
+			    }
 			});
 		});
 		suite(' ^_^ BeanFactory 功能测试\n',function(){
@@ -273,13 +284,24 @@
 
 						assert.isFunction(jt.setJQ);
 						assert.isFunction(jt.setData);
+						jt.setData({"a":"aa"});
+						assert.deepEqual(jt.opt._jsontree_data.obj,{"a":"aa"});
 						assert.isFunction(jt.setNodeName);
 						assert.isFunction(jt.setNodeId);
-						assert.isFunction(jt.setNodeSelf);		
+						jt.setNodeId("reset_nodeid");
+						jt.setNodeId("");
+						assert.strictEqual(jt.opt._jsontree_field.nodeid,"reset_nodeid");
+						assert.isFunction(jt.setNodeSelf);
+						jt.setNodeSelf("reset_nodeself");
+						jt.setNodeSelf("");
+						assert.strictEqual(jt.opt._jsontree_field.nodeself,"reset_nodeself");
 						assert.isFunction(jt.setParentNodeName);
 						assert.isFunction(jt.setUrl);
 						assert.isFunction(jt.setRootNodeWhenRenderTree);
 						assert.isFunction(jt.setTreeNodeWhenRenderTree);
+						jt.setTreeNodeWhenRenderTree("reset_treenode");
+						jt.setTreeNodeWhenRenderTree("");
+						assert.strictEqual(jt.opt._jsontree_render.treenode,"reset_treenode");
 						assert.isFunction(jt.setTargetWhenOnclickUrl);
 						assert.isFunction(jt.setTree);
 						assert.isFunction(jt.setHtml);
@@ -317,8 +339,10 @@
 					var jt = BeanFactory.treemodel.jsontree;
 					navitree.data({"a":"aa","b":"bb","c":"cc"});
 					assert.deepEqual(jt.opt._jsontree_data.obj,{"a":"aa","b":"bb","c":"cc"});
-					navitree.data(data);
-					assert.deepEqual(jt.opt._jsontree_data.obj,data);
+					for(var i=0;i<data.length;i++){
+						navitree.data(data[i]);
+						assert.deepEqual(jt.opt._jsontree_data.obj,data[i]);
+					}
 				});	
 			});
 			suite(' ->tree属性\n',function(){
@@ -349,25 +373,27 @@
 				  	assert.isFunction(navitree.child);
 				});
 				test(' -->> 执行后,正常赋值\n',function(){
-					var jt = BeanFactory.treemodel.jsontree;
-					var oldValue = jt.opt._jsontree_field.nodename;
-					navitree.data(data);
-					navitree.child("");
-					assert.strictEqual(jt.opt._jsontree_field.nodename,oldValue);
-					navitree.child({"test":"test"});
-					assert.strictEqual(jt.opt._jsontree_field.nodename,oldValue);
-					navitree.child(true);
-					assert.strictEqual(jt.opt._jsontree_field.nodename,oldValue);
-					navitree.child(1);
-					assert.strictEqual(jt.opt._jsontree_field.nodename,oldValue);
-					navitree.child("child");
-					assert.strictEqual(jt.opt._jsontree_field.nodename,oldValue);
-					navitree.child("alias");
-					assert.strictEqual(jt.opt._jsontree_field.nodename,"alias");
-					navitree.parent("parent");
-					navitree.child("parent");
-					assert.notStrictEqual(jt.opt._jsontree_field.nodename,"parent");
-					assert.strictEqual(jt.opt._jsontree_field.nodename,"alias");
+					for(var i=0;i<data.length;i++){
+						var jt = BeanFactory.treemodel.jsontree;
+						var oldValue = jt.opt._jsontree_field.nodename;
+						navitree.data(data[i]);
+						navitree.child("");
+						assert.strictEqual(jt.opt._jsontree_field.nodename,oldValue);
+						navitree.child({"test":"test"});
+						assert.strictEqual(jt.opt._jsontree_field.nodename,oldValue);
+						navitree.child(true);
+						assert.strictEqual(jt.opt._jsontree_field.nodename,oldValue);
+						navitree.child(1);
+						assert.strictEqual(jt.opt._jsontree_field.nodename,oldValue);
+						navitree.child("child");
+						assert.strictEqual(jt.opt._jsontree_field.nodename,oldValue);
+						navitree.child("alias");
+						assert.strictEqual(jt.opt._jsontree_field.nodename,"alias");
+						navitree.parent("parent");
+						navitree.child("parent");
+						assert.notStrictEqual(jt.opt._jsontree_field.nodename,"parent");
+						assert.strictEqual(jt.opt._jsontree_field.nodename,"alias");
+					}
 				});	
 			});
 			suite(' ->parent属性\n',function(){
@@ -376,23 +402,25 @@
 				  	assert.isFunction(navitree.parent);
 				});
 				test(' -->> 执行后,正常赋值\n',function(){
-					var jt = BeanFactory.treemodel.jsontree;
-					var oldValue = jt.opt._jsontree_field.parentnodename;
-					navitree.data(data);
-					navitree.parent("");
-					assert.strictEqual(jt.opt._jsontree_field.parentnodename,oldValue);
-					navitree.parent({"test":"test"});
-					assert.strictEqual(jt.opt._jsontree_field.parentnodename,oldValue);
-					navitree.parent(true);
-					assert.strictEqual(jt.opt._jsontree_field.parentnodename,oldValue);
-					navitree.parent(1);
-					assert.strictEqual(jt.opt._jsontree_field.parentnodename,oldValue);				
-					navitree.parent("parent");
-					assert.strictEqual(jt.opt._jsontree_field.parentnodename,"parent");
-					navitree.child("alias");
-					navitree.parent("alias");
-					assert.notStrictEqual(jt.opt._jsontree_field.parentnodename,"alias");
-					assert.strictEqual(jt.opt._jsontree_field.parentnodename,"parent");
+					for(var i=0;i<data.length;i++){
+						var jt = BeanFactory.treemodel.jsontree;
+						var oldValue = jt.opt._jsontree_field.parentnodename;
+						navitree.data(data[i]);
+						navitree.parent("");
+						assert.strictEqual(jt.opt._jsontree_field.parentnodename,oldValue);
+						navitree.parent({"test":"test"});
+						assert.strictEqual(jt.opt._jsontree_field.parentnodename,oldValue);
+						navitree.parent(true);
+						assert.strictEqual(jt.opt._jsontree_field.parentnodename,oldValue);
+						navitree.parent(1);
+						assert.strictEqual(jt.opt._jsontree_field.parentnodename,oldValue);				
+						navitree.parent("parent");
+						assert.strictEqual(jt.opt._jsontree_field.parentnodename,"parent");
+						navitree.child("alias");
+						navitree.parent("alias");
+						assert.notStrictEqual(jt.opt._jsontree_field.parentnodename,"alias");
+						assert.strictEqual(jt.opt._jsontree_field.parentnodename,"parent");
+					}
 				});	
 			});
 			suite(' ->url属性\n',function(){
@@ -401,21 +429,23 @@
 				  	assert.isFunction(navitree.url);
 				});
 				test(' -->> 执行后,正常赋值\n',function(){
-					var jt = BeanFactory.treemodel.jsontree;
-					var oldValue = jt.opt._jsontree_field.url;
-					navitree.data(data);
-					navitree.url("");
-					assert.strictEqual(jt.opt._jsontree_field.url,oldValue);
-					navitree.url({"test":"test"});
-					assert.strictEqual(jt.opt._jsontree_field.url,oldValue);
-					navitree.url(true);
-					assert.strictEqual(jt.opt._jsontree_field.url,oldValue);
-					navitree.url(1);
-					assert.strictEqual(jt.opt._jsontree_field.url,oldValue);	
-					navitree.url("http://");
-					assert.strictEqual(jt.opt._jsontree_field.url,oldValue);
-					navitree.url("url");
-					assert.strictEqual(jt.opt._jsontree_field.url,"url");
+					for(var i=0;i<data.length;i++){
+						var jt = BeanFactory.treemodel.jsontree;
+						var oldValue = jt.opt._jsontree_field.url;
+						navitree.data(data[i]);
+						navitree.url("");
+						assert.strictEqual(jt.opt._jsontree_field.url,oldValue);
+						navitree.url({"test":"test"});
+						assert.strictEqual(jt.opt._jsontree_field.url,oldValue);
+						navitree.url(true);
+						assert.strictEqual(jt.opt._jsontree_field.url,oldValue);
+						navitree.url(1);
+						assert.strictEqual(jt.opt._jsontree_field.url,oldValue);	
+						navitree.url("http://");
+						assert.strictEqual(jt.opt._jsontree_field.url,oldValue);
+						navitree.url("url");
+						assert.strictEqual(jt.opt._jsontree_field.url,"url");
+					}
 				});	
 			});
 			suite(' ->render属性\n',function(){
@@ -462,30 +492,32 @@
 		suite(' ^_^ 案例测试\n',function(){
 
 			test(' -> 正确产生树状菜单\n',function(){
-				navitree.data(demoData[0]).child("name").parent("parent").url("url").iframeName("nothing").render("tree");
-				assert.match(navitree.html(),/^<ul.*ul>$/);
-				domCheck(demoData[0],BeanFactory.treemodel.jsontree.opt);					
+				for(var i=0;i<data.length;i++){
+					navitree.data(data[i]).child("name").parent("parent").url("url").iframeName("nothing").render("tree");
+					assert.match(navitree.html(),/^<ul.*ul>$/);
+					domCheck(data[i],BeanFactory.treemodel.jsontree.opt);	
+				}				
 			});
 			test(' -> 正确产生树状菜单,并正确动态变换属性\n',function(){
-				navitree.data(demoData[0]).child("name").parent("parent").url("url").iframeName("nothing").render("tree");
+				navitree.data(data[0]).child("name").parent("parent").url("url").iframeName("nothing").render("tree");
 				navitree.child("alias");
 				assert.match(navitree.html(),/^<ul.*ul>$/);
-				domCheck(demoData[0],BeanFactory.treemodel.jsontree.opt);
+				domCheck(data[0],BeanFactory.treemodel.jsontree.opt);
 				navitree.menuName("name");
 				assert.match(navitree.html(),/^<ul.*ul>$/);
-				domCheck(demoData[0],BeanFactory.treemodel.jsontree.opt);
+				domCheck(data[0],BeanFactory.treemodel.jsontree.opt);
 				navitree.url("url");
 				assert.match(navitree.html(),/^<ul.*ul>$/);
-				domCheck(demoData[0],BeanFactory.treemodel.jsontree.opt);
+				domCheck(data[0],BeanFactory.treemodel.jsontree.opt);
 				navitree.iframeName("no");
 				assert.match(navitree.html(),/^<ul.*ul>$/);
-				domCheck(demoData[0],BeanFactory.treemodel.jsontree.opt);
+				domCheck(data[0],BeanFactory.treemodel.jsontree.opt);
 				navitree.render("athertree");
 				assert.match(navitree.html(),/^<ul.*ul>$/);
-				domCheck(demoData[0],BeanFactory.treemodel.jsontree.opt);	
+				domCheck(data[0],BeanFactory.treemodel.jsontree.opt);	
 				navitree.parent("aliasparent");
 				assert.match(navitree.html(),/^<ul.*ul>$/);
-				domCheck(demoData[0],BeanFactory.treemodel.jsontree.opt);
+				domCheck(data[0],BeanFactory.treemodel.jsontree.opt);
 			});
 			test(' -> 变换属性时正确忽略将会导致死循环的设置\n',function(){
 				navitree.data(demoData[1]).child("name").parent("parent").url("url").iframeName("nothing").render("tree");

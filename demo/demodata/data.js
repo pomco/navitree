@@ -1,9 +1,11 @@
 !function(f){
 	"use strict";
-	/* istanbul ignore next */
+	/* istanbul ignore if */
+	/* istanbul ignore else */
 	if(typeof module ==='object' && typeof module.exports ==='object'){
 		module.exports = f();
 	}else{
+		/* istanbul ignore next */
 		var _global_window = window ? window : {};
 		_global_window.demoData = f();
 	}

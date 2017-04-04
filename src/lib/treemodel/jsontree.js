@@ -127,7 +127,7 @@
 		if(reg.test(arg)){
 			jsontree.opt._jsontree_render.rootnode = arg;
 		}else{
-			jsontree.opt._jsontree_render.rootnode = (typeof arg ==="string" && arg !=='')? ("#"+arg) : jsontree.opt._jsontree_field.rootnode;
+			jsontree.opt._jsontree_render.rootnode = (typeof arg ==="string" && arg !=='')? ("#"+arg) : jsontree.opt._jsontree_render.rootnode;
 		}
 		if(jsontree.isNecessaryDataOnReady()){
 			jsontree.opt._jsontree_depend.JQ(this).trigger('init_tree');
@@ -137,7 +137,7 @@
 	jsontree.setTreeNodeWhenRenderTree = function(arg){
 		var reg = /^\./g;
 		if(!reg.test(arg)){
-			jsontree.opt._jsontree_render.treenode = (typeof arg ==="string" && arg !=='')? arg : jsontree.opt._jsontree_field.treenode;
+			jsontree.opt._jsontree_render.treenode = (typeof arg ==="string" && arg !=='')? arg : jsontree.opt._jsontree_render.treenode;
 		}
 		return this;
 	};
