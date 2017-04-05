@@ -58,7 +58,7 @@
 		opt.push(function(){
 			treeBean.JQ.extend(true,this,{"data" : treeBean.jsontree.setData});
 			treeBean.JQ.extend(true,this,{"tree" : treeBean.jsontree.tree});
-			treeBean.JQ.extend(true,this,{"html" : treeBean.jsontree.tree.toString});
+			treeBean.JQ.extend(true,this,{"html" : treeBean.jsontree.html});
 			treeBean.JQ.extend(true,this,{"child" : treeBean.jsontree.setNodeName});
 			treeBean.JQ.extend(true,this,{"parent" : treeBean.jsontree.setParentNodeName});
 			treeBean.JQ.extend(true,this,{"url" : treeBean.jsontree.setUrl});

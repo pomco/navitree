@@ -2,7 +2,7 @@
   "name": "navitree",
   "version": "0.0.7",
   "description": "",
-  "main": "navitree.js",
+  "main": "index.js",
   "scripts": {
     "test": "./node_modules/mocha/bin/mocha -u tdd ./test/*.js",
     "coveralls": "./node_modules/istanbul/lib/cli.js cover ./node_modules/mocha/bin/_mocha ./test/*.js --report lcovonly -- -R spec && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage",

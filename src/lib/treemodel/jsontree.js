@@ -506,7 +506,7 @@
 	jsontree.tree = function(){
 		return jsontree.opt._jsontree_tree_info.tree;
 	};
-	jsontree.tree.toString = function(){
+	jsontree.html = function(){
 		return jsontree.opt._jsontree_tree_info.html;
 	};
 	return jsontree;
